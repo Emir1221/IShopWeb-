@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using IShopWeb.Application.Dto;
+using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace IShopWeb.Api.Controllers
@@ -7,7 +8,7 @@ namespace IShopWeb.Api.Controllers
     [ApiController]
     public class AuthenticateController : ControllerBase
     {
-        public async Task Login()
+        public async Task Login(LoginDto loginDto)
         {
 
         }
