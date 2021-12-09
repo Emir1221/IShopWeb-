@@ -8,9 +8,9 @@ namespace IShopWeb.Api.Controllers
     [ApiController]
     public class AuthenticateController : ControllerBase
     {
-        public async Task Login(LoginDto loginDto)
-        {
+        //public async Task Login(LoginDto loginDto)
+        //{
 
-        }
+        //}
     }
 }

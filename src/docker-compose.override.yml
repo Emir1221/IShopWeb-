@@ -1,0 +1,12 @@
+version: '3.4'
+
+services:
+  ishopweb.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+    #ports:
+    #  - "6000:80"
+
+    volumes:
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
