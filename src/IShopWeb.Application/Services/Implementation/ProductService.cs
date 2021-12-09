@@ -1,7 +1,9 @@
 ﻿using IShopWeb.Application.Dto;
 using IShopWeb.Application.Services.Interfaces;
+using IShopWeb.Domain.Models;
 using IShopWeb.Persistence.Repository.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace IShopWeb.Application.Services.Implementation
@@ -17,28 +19,44 @@ namespace IShopWeb.Application.Services.Implementation
 
         public async Task CreateProductAsync(ProductDto productDto)
         {
-            //TODO Mapping
-            _productRepository.CreateProductAsync();
+            var product = new Product()
+            {
+                Id = productDto.Id,
+                Name = productDto.Name
+            };
+
+            await _productRepository.CreateProductAsync(product);
         }
 
         public async Task DeleteProductAsync(int id)
         {
-            _productRepository.DeleteProductAsync(id);
+            await _productRepository.DeleteProductAsync(id);
         }
 
         public async Task<List<ProductDto>> GetAllProductsAsync()
         {
-            return await _productRepository.GetAllProductsAsync();
+
+
+            var products = await _productRepository.GetAllProductsAsync();
+
+            return products.Select(x => new ProductDto { Id = x.Id, Name = x.Name }).ToList();
         }
 
         public async Task<ProductDto> GetProductByIdAsync(int id)
         {
-            return await _productRepository.GetProductByIdAsync();
+            var product = await _productRepository.GetProductByIdAsync(id);
+            return new ProductDto { Id = product.Id, Name = product.Name };
+
         }
 
         public async Task UpdateProductAsync(ProductDto productDto)
         {
-            await _productRepository.UpdateProductAsync();
+            var product = new Product
+            {
+                Id = productDto.Id,
+                Name = productDto.Name
+            };
+            await _productRepository.UpdateProductAsync(product);
         }
     }
 }

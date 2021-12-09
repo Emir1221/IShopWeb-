@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace IShopWeb.Persistence.Data
 {
-    public class AppContext : DbContext
+    public class AppDbContext : DbContext
     {
-        public AppContext(DbContextOptions<AppContext> options) : base(options)
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
             Database.EnsureCreated();
         }

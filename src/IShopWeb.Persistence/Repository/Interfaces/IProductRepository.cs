@@ -12,7 +12,7 @@ namespace IShopWeb.Persistence.Repository.Interfaces
 
         Task CreateProductAsync(Product product);
 
-        Task UpdateProductAsync(Product productDto);
+        Task UpdateProductAsync(Product product);
 
         Task DeleteProductAsync(int id);
     }

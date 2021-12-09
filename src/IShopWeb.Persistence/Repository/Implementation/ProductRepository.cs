@@ -1,5 +1,7 @@
 ﻿using IShopWeb.Domain.Models;
+using IShopWeb.Persistence.Data;
 using IShopWeb.Persistence.Repository.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,29 +12,40 @@ namespace IShopWeb.Persistence.Repository.Implementation
 {
     public class ProductRepository : IProductRepository
     {
+        private readonly AppDbContext _appDbContext; //TODO нормально ли так делать или создать интерфейс
+
+        public ProductRepository(AppDbContext appDbContext)
+        {
+            _appDbContext = appDbContext;
+        }
+
         public async Task CreateProductAsync(Product product)
         {
-            throw new NotImplementedException();
+            await _appDbContext.Products.AddAsync(product);
+            await _appDbContext.SaveChangesAsync();
         }
 
         public async Task DeleteProductAsync(int id)
         {
-            throw new NotImplementedException();
+            var product = await _appDbContext.Products.FirstOrDefaultAsync(x => x.Id == id);
+            _appDbContext.Products.Remove(product); //TODO можно сделать так чтоб удалить одним запросом и не искать из бд по id
+            await _appDbContext.SaveChangesAsync();
         }
 
         public async Task<List<Product>> GetAllProductsAsync()
         {
-            throw new NotImplementedException();
+            return await _appDbContext.Products.AsNoTracking().ToListAsync();
         }
 
         public async Task<Product> GetProductByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _appDbContext.Products.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task UpdateProductAsync(Product productDto)
+        public async Task UpdateProductAsync(Product product)
         {
-            throw new NotImplementedException();
+            _appDbContext.Products.Update(product);
+            await _appDbContext.SaveChangesAsync();
         }
     }
 }
