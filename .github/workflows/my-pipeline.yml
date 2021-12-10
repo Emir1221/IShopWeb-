@@ -20,8 +20,8 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Restore dependencies
-      run: dotnet restore ./src/IShopWeb.Api
+      run: dotnet restore ./src/IShopWeb.Api/
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build --no-restore  ./src/IShopWeb.Api/
     - name: Test
       run: dotnet test --no-build --verbosity normal
